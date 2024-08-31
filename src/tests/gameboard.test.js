@@ -192,18 +192,18 @@ describe('Gameboard', () => {
     expect(board.misses).toEqual([]);
   });
 
-  // test('All ships sunk returns true when every ship is sunk', () => {
-  //   board.placeShip(2, 'vertical', [0, 0]);
-  //   board.receiveAttack([0, 0]);
-  //   board.receiveAttack([1, 0]);
-  //   expect(board.allShipsSunk()).toBe(true);
-  // });
+  test('All ships sunk returns true when every ship is sunk', () => {
+    board.placeShip(2, 'vertical', [0, 0]);
+    board.receiveAttack([0, 0]);
+    board.receiveAttack([1, 0]);
+    expect(board.allShipsSunk()).toBe(true);
+  });
 
-  // test('All ships sunk returns false when any ship is not sunk', () => {
-  //   board.placeShip(2, 'vertical', [0, 0]);
-  //   board.placeShip(1, 'horizontal', [5, 5]);
-  //   board.receiveAttack([0, 0]);
-  //   board.receiveAttack([1, 0]);
-  //   expect(board.allShipsSunk()).toBe(false);
-  // });
+  test('All ships sunk returns false when any ship is not sunk', () => {
+    board.placeShip(2, 'vertical', [0, 0]);
+    board.placeShip(1, 'horizontal', [5, 5]);
+    board.receiveAttack([0, 0]);
+    board.receiveAttack([1, 0]);
+    expect(board.allShipsSunk()).toBe(false);
+  });
 });

@@ -89,9 +89,9 @@ class Gameboard {
     }
   }
 
-  // allShipsSunk() {
-  //   return this.ships.every((shipData) => shipData.ship.sunk === true);
-  // }
+  allShipsSunk() {
+    return this.ships.every((shipData) => shipData.ship.sunk === true);
+  }
 }
 
 export default Gameboard;
