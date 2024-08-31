@@ -68,6 +68,30 @@ class Gameboard {
       this.ships.push(shipData);
     }
   }
+
+  #isValidAttack([posY, posX]) {
+    if (posY < 0 || posY > 9 || posX < 0 || posX > 9) {
+      return false;
+    }
+    return true;
+  }
+
+  receiveAttack([posY, posX]) {
+    if (this.#isValidAttack([posY, posX])) {
+      const ship = this.board[posY][posX];
+      if (ship) {
+        ship.hit();
+        ship.isSunk();
+        this.hits.push([posY, posX]);
+      } else {
+        this.misses.push([posY, posX]);
+      }
+    }
+  }
+
+  // allShipsSunk() {
+  //   return this.ships.every((shipData) => shipData.ship.sunk === true);
+  // }
 }
 
 export default Gameboard;

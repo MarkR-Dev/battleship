@@ -161,4 +161,49 @@ describe('Gameboard', () => {
       ],
     });
   });
+
+  test('Receive attack calls ship.hit on correct ship', () => {
+    board.placeShip(3, 'vertical', [3, 3]);
+    const ship1 = board.board[3][3];
+    board.placeShip(2, 'horizontal', [0, 0]);
+    const ship2 = board.board[0][0];
+    board.receiveAttack([3, 3]);
+    expect(ship1.totalHits).toBe(1);
+    expect(ship2.totalHits).toBe(0);
+    expect(board.hits).toEqual([[3, 3]]);
+    expect(board.misses).toEqual([]);
+  });
+
+  test('Receive attack records a miss correctly', () => {
+    board.placeShip(3, 'vertical', [3, 3]);
+    const ship1 = board.board[3][3];
+    board.placeShip(2, 'horizontal', [0, 0]);
+    const ship2 = board.board[0][0];
+    board.receiveAttack([6, 8]);
+    expect(ship1.totalHits).toBe(0);
+    expect(ship2.totalHits).toBe(0);
+    expect(board.hits).toEqual([]);
+    expect(board.misses).toEqual([[6, 8]]);
+  });
+
+  test("Receive attack doesn't error with invalid board positions", () => {
+    board.receiveAttack([12, 4]);
+    board.receiveAttack([3, -2]);
+    expect(board.misses).toEqual([]);
+  });
+
+  // test('All ships sunk returns true when every ship is sunk', () => {
+  //   board.placeShip(2, 'vertical', [0, 0]);
+  //   board.receiveAttack([0, 0]);
+  //   board.receiveAttack([1, 0]);
+  //   expect(board.allShipsSunk()).toBe(true);
+  // });
+
+  // test('All ships sunk returns false when any ship is not sunk', () => {
+  //   board.placeShip(2, 'vertical', [0, 0]);
+  //   board.placeShip(1, 'horizontal', [5, 5]);
+  //   board.receiveAttack([0, 0]);
+  //   board.receiveAttack([1, 0]);
+  //   expect(board.allShipsSunk()).toBe(false);
+  // });
 });
