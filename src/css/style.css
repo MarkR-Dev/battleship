@@ -1,0 +1,36 @@
+#game-container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    rgba(158, 241, 252, 1) 5%,
+    rgba(28, 241, 250, 1) 25%,
+    rgba(9, 41, 121, 1) 90%,
+    rgba(5, 9, 69, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+}
+
+#game-title {
+  font-size: 3rem;
+  color: black;
+  font-family: monospace;
+  text-align: center;
+  padding: 30px;
+}
+
+#board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+  flex-grow: 1;
+}
+
+.board {
+  border: 3px solid black;
+  width: 500px;
+  height: 500px;
+  background-color: white;
+}
