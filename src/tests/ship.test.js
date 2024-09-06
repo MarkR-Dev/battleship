@@ -20,15 +20,15 @@ describe('Ship', () => {
   });
 
   test('isSunk() method returns false when hits less than ship.length', () => {
-    const patrolBoat = new Ship(2);
-    patrolBoat.hit();
-    expect(patrolBoat.isSunk()).toBe(false);
+    const submarine = new Ship(2);
+    submarine.hit();
+    expect(submarine.isSunk()).toBe(false);
   });
 
   test('isSunk() method returns true when hits greater than or equal to ship.length', () => {
-    const patrolBoat = new Ship(2);
-    patrolBoat.hit();
-    patrolBoat.hit();
-    expect(patrolBoat.isSunk()).toBe(true);
+    const submarine = new Ship(2);
+    submarine.hit();
+    submarine.hit();
+    expect(submarine.isSunk()).toBe(true);
   });
 });

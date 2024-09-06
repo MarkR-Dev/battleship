@@ -33,4 +33,20 @@
   width: 500px;
   height: 500px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  flex-grow: 1;
+  display: flex;
+}
+
+.col {
+  border: 1px solid black;
+  flex-grow: 1;
+}
+
+.ship {
+  background-color: lightgreen;
 }
