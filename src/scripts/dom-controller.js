@@ -69,6 +69,32 @@ const domController = {
       }
     }
   },
+
+  updateBoard(player, name) {
+    this.renderHits(player, name);
+    this.renderMisses(player, name);
+  },
+
+  renderHits(player, name) {
+    if (player.gameboard.hits.length) {
+      const lastHit = player.gameboard.hits[player.gameboard.hits.length - 1];
+      const cell = document.querySelector(
+        `#${name} [data-pos="${lastHit[0]}-${lastHit[1]}"]`,
+      );
+      cell.classList.add('hit');
+    }
+  },
+
+  renderMisses(player, name) {
+    if (player.gameboard.misses.length) {
+      const lastMiss =
+        player.gameboard.misses[player.gameboard.misses.length - 1];
+      const cell = document.querySelector(
+        `#${name} [data-pos="${lastMiss[0]}-${lastMiss[1]}"]`,
+      );
+      cell.classList.add('miss');
+    }
+  },
 };
 
 export default domController;

@@ -26,6 +26,22 @@ const gameController = {
 
   startGame() {
     domController.startGameDOM(player);
+
+    const aiBoard = document.querySelector('#ai');
+
+    aiBoard.addEventListener('click', gameController.sendPlayerAttack);
+  },
+
+  sendPlayerAttack(event) {
+    if (!event.target.dataset.pos) {
+      return;
+    }
+    const chosenCell = event.target.dataset.pos;
+    let [y, x] = chosenCell.split('-');
+    y = +y;
+    x = +x;
+    ai.gameboard.receiveAttack([y, x]);
+    domController.updateBoard(ai, 'ai');
   },
 };
 
