@@ -42,6 +42,20 @@ const gameController = {
     x = +x;
     ai.gameboard.receiveAttack([y, x]);
     domController.updateBoard(ai, 'ai');
+
+    gameController.sendAIAttack();
+  },
+
+  sendAIAttack() {
+    const aiBoard = document.querySelector('#ai');
+
+    aiBoard.removeEventListener('click', gameController.sendPlayerAttack);
+
+    setTimeout(() => {
+      player.gameboard.receiveAttack([0, 0]);
+      domController.updateBoard(player, 'player');
+      aiBoard.addEventListener('click', gameController.sendPlayerAttack);
+    }, 2000);
   },
 };
 

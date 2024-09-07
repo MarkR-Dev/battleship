@@ -76,8 +76,9 @@ const domController = {
   },
 
   renderHits(player, name) {
-    if (player.gameboard.hits.length) {
-      const lastHit = player.gameboard.hits[player.gameboard.hits.length - 1];
+    const hits = player.gameboard.hits;
+    if (hits.length) {
+      const lastHit = hits[hits.length - 1];
       const cell = document.querySelector(
         `#${name} [data-pos="${lastHit[0]}-${lastHit[1]}"]`,
       );
@@ -86,9 +87,9 @@ const domController = {
   },
 
   renderMisses(player, name) {
-    if (player.gameboard.misses.length) {
-      const lastMiss =
-        player.gameboard.misses[player.gameboard.misses.length - 1];
+    const misses = player.gameboard.misses;
+    if (misses.length) {
+      const lastMiss = misses[misses.length - 1];
       const cell = document.querySelector(
         `#${name} [data-pos="${lastMiss[0]}-${lastMiss[1]}"]`,
       );
