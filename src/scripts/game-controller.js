@@ -33,9 +33,13 @@ const gameController = {
   },
 
   sendPlayerAttack(event) {
-    if (!event.target.dataset.pos) {
+    if (
+      !event.target.dataset.pos ||
+      event.target.classList.contains('selected')
+    ) {
       return;
     }
+    event.target.classList.add('selected');
     const chosenCell = event.target.dataset.pos;
     let [y, x] = chosenCell.split('-');
     y = +y;
@@ -52,10 +56,15 @@ const gameController = {
     aiBoard.removeEventListener('click', gameController.sendPlayerAttack);
 
     setTimeout(() => {
-      player.gameboard.receiveAttack([0, 0]);
+      const randomAttack = ai.randomAttack(
+        ai.validMoves,
+        player.gameboard.hits,
+        player.gameboard.misses,
+      );
+      player.gameboard.receiveAttack(randomAttack);
       domController.updateBoard(player, 'player');
       aiBoard.addEventListener('click', gameController.sendPlayerAttack);
-    }, 2000);
+    }, 1500);
   },
 };
 
