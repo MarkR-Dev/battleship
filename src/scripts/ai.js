@@ -5,6 +5,7 @@ class AI extends Player {
     super();
     this.validMoves = this.#getValidMoves();
   }
+
   #binarySearch(board, toRemove, start, end) {
     if (start > end) return -1;
 
