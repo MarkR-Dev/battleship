@@ -1,8 +1,9 @@
 import Player from './player';
+import AI from './ai';
 import domController from './dom-controller';
 
 const player = new Player();
-const ai = new Player();
+const ai = new AI();
 
 const gameController = {
   setupGame() {
