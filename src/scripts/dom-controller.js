@@ -1,5 +1,8 @@
 const domController = {
   setupGameDOM() {
+    const setupContainer = document.querySelector('#setup-container');
+    setupContainer.textContent = '';
+
     const boardContainer = document.querySelector('#board-container');
     boardContainer.textContent = '';
 
@@ -7,10 +10,13 @@ const domController = {
     startBtn.textContent = 'Start Game';
     startBtn.id = 'start-btn';
 
-    boardContainer.appendChild(startBtn);
+    setupContainer.appendChild(startBtn);
   },
 
   startGameDOM(player) {
+    const setupContainer = document.querySelector('#setup-container');
+    setupContainer.textContent = '';
+
     const boardContainer = document.querySelector('#board-container');
     boardContainer.textContent = '';
 
@@ -95,6 +101,13 @@ const domController = {
       );
       cell.classList.add('miss');
     }
+  },
+
+  displayWinner(winner) {
+    const winnerDisplay = document.querySelector('#winner-display');
+    const winnerH2 = document.querySelector('#winner-display h2');
+    winnerH2.textContent = `${winner} wins!`;
+    winnerDisplay.style.visibility = 'visible';
   },
 };
 

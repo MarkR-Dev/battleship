@@ -22,7 +22,7 @@ const gameController = {
     ai.gameboard.placeShip(1, 'horizontal', [8, 0]);
 
     const startBtn = document.querySelector('#start-btn');
-    startBtn.addEventListener('click', this.startGame);
+    startBtn.addEventListener('click', gameController.startGame);
   },
 
   startGame() {
@@ -48,6 +48,11 @@ const gameController = {
     ai.gameboard.receiveAttack([y, x]);
     domController.updateBoard(ai, 'ai');
 
+    if (gameController.isGameOver()) {
+      gameController.endGame('Player');
+      return;
+    }
+
     gameController.sendAIAttack();
   },
 
@@ -65,7 +70,24 @@ const gameController = {
       player.gameboard.receiveAttack(randomAttack);
       domController.updateBoard(player, 'player');
       aiBoard.addEventListener('click', gameController.sendPlayerAttack);
-    }, 1500);
+
+      if (gameController.isGameOver()) {
+        gameController.endGame('AI');
+      }
+    }, 2);
+  },
+
+  isGameOver() {
+    const isPlayerSunk = player.gameboard.allShipsSunk();
+    const isAISunk = ai.gameboard.allShipsSunk();
+
+    return isAISunk || isPlayerSunk;
+  },
+
+  endGame(winner) {
+    const aiBoard = document.querySelector('#ai');
+    aiBoard.removeEventListener('click', gameController.sendPlayerAttack);
+    domController.displayWinner(winner);
   },
 };
 
