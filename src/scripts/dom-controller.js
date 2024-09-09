@@ -6,6 +6,9 @@ const domController = {
     const boardContainer = document.querySelector('#board-container');
     boardContainer.textContent = '';
 
+    const winnerDisplay = document.querySelector('#winner-display');
+    winnerDisplay.style.visibility = 'hidden';
+
     const startBtn = document.createElement('button');
     startBtn.textContent = 'Start Game';
     startBtn.id = 'start-btn';

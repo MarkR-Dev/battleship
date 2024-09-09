@@ -6,8 +6,20 @@ describe('Player', () => {
   });
 
   test('Creates a Player', () => {
-    const playerOne = new Player();
-    expect(playerOne).toBeInstanceOf(Player);
-    expect(playerOne.gameboard).toBeDefined();
+    const player = new Player();
+    expect(player).toBeInstanceOf(Player);
+    expect(player.gameboard).toBeDefined();
+  });
+
+  test('Resets gameboard for new game', () => {
+    const player = new Player();
+    player.gameboard.placeShip(5, 'horizontal', [0, 0]);
+    player.gameboard.receiveAttack([0, 0]);
+    player.gameboard.receiveAttack([1, 0]);
+
+    player.reset();
+    expect(player.gameboard.ships).toEqual([]);
+    expect(player.gameboard.hits).toEqual([]);
+    expect(player.gameboard.misses).toEqual([]);
   });
 });

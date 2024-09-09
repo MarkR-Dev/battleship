@@ -88,6 +88,19 @@ const gameController = {
     const aiBoard = document.querySelector('#ai');
     aiBoard.removeEventListener('click', gameController.sendPlayerAttack);
     domController.displayWinner(winner);
+
+    const newGameBtn = document.querySelector('#new-game-btn');
+    newGameBtn.addEventListener('click', gameController.newGame);
+  },
+
+  newGame() {
+    player.reset();
+    ai.reset();
+
+    const newGameBtn = document.querySelector('#new-game-btn');
+    newGameBtn.removeEventListener('click', gameController.newGame);
+
+    gameController.setupGame();
   },
 };
 

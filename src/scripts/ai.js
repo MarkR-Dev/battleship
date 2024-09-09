@@ -58,6 +58,11 @@ class AI extends Player {
 
     return currentValidMoves[randomIndex];
   }
+
+  reset() {
+    super.reset();
+    this.validMoves = this.#getValidMoves();
+  }
 }
 
 export default AI;
