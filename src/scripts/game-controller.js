@@ -22,6 +22,7 @@ const gameController = {
     ai.gameboard.placeShip(1, 'horizontal', [8, 0]);
 
     const startBtn = document.querySelector('#start-btn');
+    startBtn.removeEventListener('click', gameController.startGame);
     startBtn.addEventListener('click', gameController.startGame);
   },
 
@@ -29,7 +30,7 @@ const gameController = {
     domController.startGameDOM(player);
 
     const aiBoard = document.querySelector('#ai');
-
+    aiBoard.removeEventListener('click', gameController.sendPlayerAttack);
     aiBoard.addEventListener('click', gameController.sendPlayerAttack);
   },
 
