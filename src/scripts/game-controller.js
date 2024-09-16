@@ -4,6 +4,7 @@ import domController from './dom-controller';
 
 const player = new Player();
 const ai = new AI();
+let orientation = 'horizontal';
 
 const gameController = {
   setupGame() {
@@ -21,9 +22,18 @@ const gameController = {
     ai.gameboard.placeShip(2, 'horizontal', [6, 0]);
     ai.gameboard.placeShip(1, 'horizontal', [8, 0]);
 
-    const startBtn = document.querySelector('#start-btn');
-    startBtn.removeEventListener('click', gameController.startGame);
-    startBtn.addEventListener('click', gameController.startGame);
+    // const startBtn = document.querySelector('#start-btn');
+    // startBtn.removeEventListener('click', gameController.startGame);
+    // startBtn.addEventListener('click', gameController.startGame);
+    const oriBtnDiv = document.querySelector('#orientation');
+    oriBtnDiv.addEventListener('click', this.swapOrientation);
+  },
+
+  swapOrientation(event) {
+    if (event.target.classList.contains('ori-btn')) {
+      orientation = event.target.id;
+      domController.swapOrientation(event.target, orientation);
+    }
   },
 
   startGame() {
@@ -75,7 +85,7 @@ const gameController = {
       if (gameController.isGameOver()) {
         gameController.endGame('AI');
       }
-    }, 2);
+    }, 2000);
   },
 
   isGameOver() {

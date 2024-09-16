@@ -1,21 +1,52 @@
 const domController = {
   setupGameDOM() {
-    const setupContainer = document.querySelector('#setup-container');
-    setupContainer.textContent = '';
-
     const boardContainer = document.querySelector('#board-container');
     boardContainer.textContent = '';
 
     const winnerDisplay = document.querySelector('#winner-display');
     winnerDisplay.style.visibility = 'hidden';
 
-    const startBtn = document.createElement('button');
-    startBtn.textContent = 'Start Game';
-    startBtn.id = 'start-btn';
+    // const startBtn = document.createElement('button');
+    // startBtn.textContent = 'Start Game';
+    // startBtn.id = 'start-btn';
 
-    setupContainer.appendChild(startBtn);
+    // boardContainer.appendChild(startBtn);
+
+    const playerBoard = document.createElement('div');
+    playerBoard.id = 'player';
+    playerBoard.classList.add('board');
+    boardContainer.appendChild(playerBoard);
+    this.renderBoard('player');
+
+    const orientationDiv = document.createElement('div');
+    orientationDiv.id = 'orientation';
+
+    const horizontalBtn = document.createElement('button');
+    horizontalBtn.textContent = 'Horizontal';
+    horizontalBtn.classList.add('ori-btn');
+    horizontalBtn.classList.add('active');
+    horizontalBtn.id = 'horizontal';
+    orientationDiv.appendChild(horizontalBtn);
+
+    const verticalBtn = document.createElement('button');
+    verticalBtn.textContent = 'Vertical';
+    verticalBtn.classList.add('ori-btn');
+    verticalBtn.id = 'vertical';
+    orientationDiv.appendChild(verticalBtn);
+
+    const shipsContainer = document.createElement('div');
+    shipsContainer.id = 'ships-container';
+    boardContainer.appendChild(shipsContainer);
+
+    shipsContainer.appendChild(orientationDiv);
+
+    const shipsDiv = document.createElement('div');
+    shipsDiv.id = 'ships-div';
+    shipsContainer.appendChild(shipsDiv);
+    this.renderSetupShips();
   },
 
+  //TODO: fix this
   startGameDOM(player) {
     const setupContainer = document.querySelector('#setup-container');
     setupContainer.textContent = '';
@@ -64,6 +95,23 @@ const domController = {
       ai.appendChild(aiRow);
     }
   },
+  renderBoard(playerString) {
+    const playerBoard = document.querySelector(`#${playerString}`);
+
+    for (let i = 0; i < 10; i++) {
+      const row = document.createElement('div');
+      row.classList.add('row');
+
+      for (let j = 0; j < 10; j++) {
+        const col = document.createElement('div');
+        col.classList.add('col');
+        col.dataset.pos = `${i}-${j}`;
+
+        row.appendChild(col);
+      }
+      playerBoard.appendChild(row);
+    }
+  },
 
   renderPlayerShips(player) {
     const ships = player.gameboard.ships;
@@ -76,6 +124,53 @@ const domController = {
         );
         cell.classList.add('ship');
       }
+    }
+  },
+
+  renderSetupShips() {
+    const shipsDiv = document.querySelector('#ships-div');
+    const carrier = this.createShip('carrier', 5);
+    const battleship = this.createShip('battleship', 4);
+    const destroyer = this.createShip('destroyer', 3);
+    const destroyerTwo = this.createShip('destroyer-two', 3);
+    const submarine = this.createShip('submarine', 2);
+    const submarineTwo = this.createShip('submarine-two', 2);
+    shipsDiv.appendChild(carrier);
+    shipsDiv.appendChild(battleship);
+    shipsDiv.appendChild(destroyer);
+    shipsDiv.appendChild(destroyerTwo);
+    shipsDiv.appendChild(submarine);
+    shipsDiv.appendChild(submarineTwo);
+  },
+
+  createShip(id, length) {
+    const ship = document.createElement('div');
+    ship.classList.add('setup-ship');
+    ship.id = id;
+    for (let i = 0; i < length; i++) {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      ship.appendChild(cell);
+    }
+    return ship;
+  },
+
+  swapOrientation(targetBtn, orientation) {
+    const buttons = document.querySelectorAll('#orientation button');
+    const shipsDiv = document.querySelector('#ships-div');
+    const ships = document.querySelectorAll('#ships-div .setup-ship');
+
+    buttons.forEach((button) => {
+      button.classList.remove('active');
+    });
+    targetBtn.classList.add('active');
+
+    if (orientation === 'horizontal') {
+      shipsDiv.classList.remove('vertical');
+      ships.forEach((ship) => ship.classList.remove('vertical'));
+    } else {
+      shipsDiv.classList.add('vertical');
+      ships.forEach((ship) => ship.classList.add('vertical'));
     }
   },
 
