@@ -6,12 +6,6 @@ const domController = {
     const winnerDisplay = document.querySelector('#winner-display');
     winnerDisplay.style.visibility = 'hidden';
 
-    // const startBtn = document.createElement('button');
-    // startBtn.textContent = 'Start Game';
-    // startBtn.id = 'start-btn';
-
-    // boardContainer.appendChild(startBtn);
-
     const playerBoard = document.createElement('div');
     playerBoard.id = 'player';
     playerBoard.classList.add('board');
@@ -46,55 +40,6 @@ const domController = {
     this.renderSetupShips();
   },
 
-  //TODO: fix this
-  startGameDOM(player) {
-    const setupContainer = document.querySelector('#setup-container');
-    setupContainer.textContent = '';
-
-    const boardContainer = document.querySelector('#board-container');
-    boardContainer.textContent = '';
-
-    const playerBoard = document.createElement('div');
-    playerBoard.id = 'player';
-    playerBoard.classList.add('board');
-    boardContainer.appendChild(playerBoard);
-
-    const aiBoard = document.createElement('div');
-    aiBoard.id = 'ai';
-    aiBoard.classList.add('board');
-    boardContainer.appendChild(aiBoard);
-
-    this.renderBoards();
-    this.renderPlayerShips(player);
-  },
-
-  renderBoards() {
-    const player = document.querySelector('#player');
-    const ai = document.querySelector('#ai');
-
-    for (let i = 0; i < 10; i++) {
-      const playerRow = document.createElement('div');
-      const aiRow = document.createElement('div');
-      playerRow.classList.add('row');
-      aiRow.classList.add('row');
-
-      for (let j = 0; j < 10; j++) {
-        const playerCol = document.createElement('div');
-        const aiCol = document.createElement('div');
-
-        playerCol.classList.add('col');
-        playerCol.dataset.pos = `${i}-${j}`;
-
-        aiCol.classList.add('col');
-        aiCol.dataset.pos = `${i}-${j}`;
-
-        playerRow.appendChild(playerCol);
-        aiRow.appendChild(aiCol);
-      }
-      player.appendChild(playerRow);
-      ai.appendChild(aiRow);
-    }
-  },
   renderBoard(playerString) {
     const playerBoard = document.querySelector(`#${playerString}`);
 
@@ -147,6 +92,8 @@ const domController = {
     const ship = document.createElement('div');
     ship.classList.add('setup-ship');
     ship.id = id;
+    ship.draggable = true;
+    ship.dataset.length = length;
     for (let i = 0; i < length; i++) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
@@ -174,6 +121,29 @@ const domController = {
     }
   },
 
+  createStartButton() {
+    const startBtn = document.createElement('button');
+    const shipsContainer = document.querySelector('#ships-container');
+    shipsContainer.textContent = '';
+    startBtn.textContent = 'Start Game';
+    startBtn.id = 'start-btn';
+
+    shipsContainer.appendChild(startBtn);
+  },
+
+  startGameDOM() {
+    const boardContainer = document.querySelector('#board-container');
+    const shipsContainer = document.querySelector('#ships-container');
+    shipsContainer.remove();
+
+    const aiBoard = document.createElement('div');
+    aiBoard.id = 'ai';
+    aiBoard.classList.add('board');
+    boardContainer.appendChild(aiBoard);
+
+    this.renderBoard('ai');
+  },
+
   updateBoard(player, name) {
     this.renderHits(player, name);
     this.renderMisses(player, name);
@@ -187,6 +157,7 @@ const domController = {
         `#${name} [data-pos="${lastHit[0]}-${lastHit[1]}"]`,
       );
       cell.classList.add('hit');
+      cell.classList.remove('placed-ship');
     }
   },
 

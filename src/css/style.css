@@ -53,7 +53,6 @@ body {
   gap: 50px;
 }
 
-/* */
 #ships-container {
   width: 500px;
   height: 500px;
@@ -111,7 +110,15 @@ body {
   height: 50px;
   border: 1px solid black;
 }
-/* */
+
+#start-btn {
+  background-color: transparent;
+  padding: 5px 10px;
+  border: 2px solid white;
+  cursor: pointer;
+  color: white;
+  font-size: 1.5rem;
+}
 
 .board#ai:hover {
   cursor: pointer;
@@ -146,4 +153,16 @@ body {
 
 .miss {
   background-color: lightskyblue;
+}
+
+.col.invalid {
+  background-color: lightcoral !important;
+}
+
+.col.valid {
+  background-color: lightgreen;
+}
+
+.col.placed-ship {
+  background-color: grey;
 }

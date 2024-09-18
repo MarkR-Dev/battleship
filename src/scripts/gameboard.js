@@ -21,8 +21,8 @@ class Gameboard {
     return board;
   }
 
-  //Check for out of bounds of board, ship positions going out of bounds and ship collisions
-  #isValidPlacement(shipLength, direction, [posY, posX]) {
+  // Check for out of bounds of board, ship positions going out of bounds and ship collisions
+  isValidPlacement(shipLength, direction, [posY, posX]) {
     const potentialPos = [];
     if (posY < 0 || posY > 9 || posX < 0 || posX > 9) {
       return false;
@@ -46,7 +46,7 @@ class Gameboard {
   }
 
   placeShip(shipLength, direction, [posY, posX]) {
-    if (this.#isValidPlacement(shipLength, direction, [posY, posX])) {
+    if (this.isValidPlacement(shipLength, direction, [posY, posX])) {
       const ship = new Ship(shipLength);
       const shipData = {
         ship: ship,

@@ -206,4 +206,26 @@ describe('Gameboard', () => {
     board.receiveAttack([1, 0]);
     expect(board.allShipsSunk()).toBe(false);
   });
+
+  test('isValidPlacement returns true when ship can be placed', () => {
+    expect(board.isValidPlacement(2, 'horizontal', [0, 0])).toBe(true);
+    expect(board.isValidPlacement(5, 'vertical', [0, 0])).toBe(true);
+  });
+
+  test('isValidPlacement returns false when starting co-ordinate is out of bounds of the grid', () => {
+    expect(board.isValidPlacement(3, 'horizontal', [2, 13])).toBe(false);
+    expect(board.isValidPlacement(4, 'vertical', [12, 3])).toBe(false);
+  });
+
+  test('isValidPlacement returns false when any of the ships co-ordinates would go out of bounds of the grid', () => {
+    expect(board.isValidPlacement(4, 'horizontal', [0, 8])).toBe(false);
+    expect(board.isValidPlacement(2, 'vertical', [9, 8])).toBe(false);
+  });
+
+  test('isValidPlacement returns false when any of the ships co-ordinates would overlap an existing ship', () => {
+    board.placeShip(2, 'vertical', [0, 5]);
+    expect(board.isValidPlacement(4, 'horizontal', [0, 3])).toBe(false);
+    expect(board.isValidPlacement(2, 'vertical', [0, 5])).toBe(false);
+    expect(board.isValidPlacement(2, 'horizontal', [7, 6])).toBe(true);
+  });
 });
