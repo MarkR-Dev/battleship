@@ -14,12 +14,6 @@ const gameController = {
   setupGame() {
     domController.setupGameDOM();
 
-    ai.gameboard.placeShip(5, 'horizontal', [0, 0]);
-    ai.gameboard.placeShip(4, 'horizontal', [2, 0]);
-    ai.gameboard.placeShip(3, 'horizontal', [4, 0]);
-    ai.gameboard.placeShip(2, 'horizontal', [6, 0]);
-    ai.gameboard.placeShip(1, 'horizontal', [8, 0]);
-
     const oriBtnDiv = document.querySelector('#orientation');
     oriBtnDiv.addEventListener('click', this.swapOrientation);
 
@@ -34,6 +28,8 @@ const gameController = {
     setupGridDOM.addEventListener('dragenter', this.dragEnter);
     setupGridDOM.addEventListener('dragleave', this.dragLeave);
     setupGridDOM.addEventListener('drop', this.drop);
+
+    gameController.placeRandomAIShips();
   },
 
   swapOrientation(event) {
@@ -219,6 +215,28 @@ const gameController = {
     setupGridDOM.removeEventListener('dragenter', this.dragEnter);
     setupGridDOM.removeEventListener('dragleave', this.dragLeave);
     setupGridDOM.removeEventListener('drop', this.drop);
+  },
+
+  placeRandomAIShips() {
+    const orientation = ['horizontal', 'vertical'];
+    const shipLengths = [2, 2, 3, 3, 4, 5];
+
+    while (ai.gameboard.ships.length < 6) {
+      const currentNumShips = ai.gameboard.ships.length;
+      const randomY = Math.floor(Math.random() * 10);
+      const randomX = Math.floor(Math.random() * 10);
+      const randomOrientation = orientation[Math.floor(Math.random() * 2)];
+
+      ai.gameboard.placeShip(
+        shipLengths[shipLengths.length - 1],
+        randomOrientation,
+        [randomY, randomX],
+      );
+
+      if (currentNumShips < ai.gameboard.ships.length) {
+        shipLengths.pop();
+      }
+    }
   },
 
   startGame() {
