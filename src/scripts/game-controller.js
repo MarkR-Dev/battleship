@@ -276,19 +276,20 @@ const gameController = {
     aiBoard.removeEventListener('click', gameController.sendPlayerAttack);
 
     setTimeout(() => {
-      const randomAttack = ai.randomAttack(
+      const smarterAttack = ai.smarterAttack(
         ai.validMoves,
         player.gameboard.hits,
         player.gameboard.misses,
       );
-      player.gameboard.receiveAttack(randomAttack);
+
+      player.gameboard.receiveAttack(smarterAttack);
       domController.updateBoard(player, 'player');
       aiBoard.addEventListener('click', gameController.sendPlayerAttack);
 
       if (gameController.isGameOver()) {
         gameController.endGame('AI');
       }
-    }, 2000);
+    }, 2);
   },
 
   isGameOver() {
