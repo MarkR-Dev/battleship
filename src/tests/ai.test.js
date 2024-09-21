@@ -30,12 +30,12 @@ describe('AI', () => {
     ai.gameboard.receiveAttack([0, 0]);
     ai.gameboard.receiveAttack([1, 0]);
 
-    const randomAttack = ai.randomAttack(
+    const smarterAttack = ai.smarterAttack(
       ai.validMoves,
       player.gameboard.hits,
       player.gameboard.misses,
     );
-    player.gameboard.receiveAttack(randomAttack);
+    player.gameboard.receiveAttack(smarterAttack);
 
     ai.reset();
     expect(ai.gameboard.ships).toEqual([]);

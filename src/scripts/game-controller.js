@@ -289,7 +289,7 @@ const gameController = {
       if (gameController.isGameOver()) {
         gameController.endGame('AI');
       }
-    }, 2);
+    }, 500);
   },
 
   isGameOver() {
