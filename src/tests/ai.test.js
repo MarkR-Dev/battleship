@@ -42,5 +42,7 @@ describe('AI', () => {
     expect(ai.gameboard.hits).toEqual([]);
     expect(ai.gameboard.misses).toEqual([]);
     expect(ai.validMoves).toEqual(allValidMoves);
+    expect(ai.smarterMoves).toEqual([]);
+    expect(ai.lastKnownHit).toEqual([]);
   });
 });

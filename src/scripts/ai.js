@@ -34,7 +34,7 @@ class AI extends Player {
   }
 
   // Take the current valid moves and remove the most recent hits/misses,
-  // then make a random attack from the updated valid moves
+  // then make a random attack from the updated remaining valid moves
   #randomAttack(currentValidMoves, hits, misses) {
     const toBeRemoved = [];
 
@@ -82,7 +82,7 @@ class AI extends Player {
       potentialNextMoves.push([lastHit[0], lastHit[1] + 1]);
       potentialNextMoves.push([lastHit[0], lastHit[1] - 1]);
 
-      // Filter potential positions that go off the board
+      // Filter potential positions that go out of bounds of the board
       const filtered = potentialNextMoves.filter((move) => {
         if (move[0] >= 0 && move[0] <= 9 && move[1] >= 0 && move[1] <= 9) {
           return true;
@@ -130,6 +130,8 @@ class AI extends Player {
   reset() {
     super.reset();
     this.validMoves = this.#getValidMoves();
+    this.smarterMoves = [];
+    this.lastKnownHit = [];
   }
 }
 

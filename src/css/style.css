@@ -133,6 +133,18 @@ body {
   flex-direction: column;
 }
 
+.col.invalid {
+  background-color: lightcoral !important;
+}
+
+.col.valid {
+  background-color: lightgreen;
+}
+
+.col.placed-ship {
+  background-color: grey;
+}
+
 .row {
   flex-grow: 1;
   display: flex;
@@ -153,16 +165,4 @@ body {
 
 .miss {
   background-color: lightskyblue;
-}
-
-.col.invalid {
-  background-color: lightcoral !important;
-}
-
-.col.valid {
-  background-color: lightgreen;
-}
-
-.col.placed-ship {
-  background-color: grey;
 }
